@@ -2,7 +2,7 @@ Package: statsforensics
 Title: Statistical Analysis Toolkit for Exploratory and Inferential Analysis
 Version: 0.1.0
 Authors@R: c(
-    person("Aayush", "Prakash", email = "aayush@example.com", role = c("aut", "cre"))
+    person("Aayush", "Prakash", email = "m.v.somaiya21@gmail.com", role = c("aut", "cre"))
   )
 Description: A comprehensive toolkit for exploratory data analysis, statistical
     inference, hypothesis testing, regression modeling, and publication-quality
@@ -30,8 +30,8 @@ Suggests:
     knitr (>= 1.42),
     rmarkdown (>= 2.21)
 VignetteBuilder: knitr
-URL: https://github.com/yourusername/statistical-analysis-toolkit
-BugReports: https://github.com/yourusername/statistical-analysis-toolkit/issues
+URL: https://github.com/aayushpx/statistical-analysis-toolkit
+BugReports: https://github.com/aayushpx/statistical-analysis-toolkit/issues
 LazyData: true
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
