@@ -12,7 +12,7 @@ The package provides reusable functions for common statistical workflows with an
 
 ```r
 # Install from GitHub
-devtools::install_github("yourusername/statistical-analysis-toolkit")
+devtools::install_github("aayushpx/statistical-analysis-toolkit")
 
 # Or during development
 devtools::load_all()
