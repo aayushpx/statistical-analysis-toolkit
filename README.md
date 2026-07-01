@@ -1,6 +1,6 @@
 # Statistical Analysis Toolkit
 
-[![R-CMD-check](https://github.com/yourusername/statistical-analysis-toolkit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yourusername/statistical-analysis-toolkit/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/aayushpx/statistical-analysis-toolkit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yourusername/statistical-analysis-toolkit/actions/workflows/R-CMD-check.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R Version](https://img.shields.io/badge/R-%3E=4.0-brightgreen)](https://www.r-project.org/)
 
