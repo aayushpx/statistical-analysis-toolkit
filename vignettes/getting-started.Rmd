@@ -22,10 +22,9 @@ library(statsforensics)
 
 ## Overview
 
-`statsforensics` provides a cohesive set of functions for the full statistical
-analysis cycle: exploratory data analysis, assumption checking, hypothesis
-testing, regression modeling, and diagnostics. This vignette walks through a
-complete workflow using the built-in `vehicles` dataset.
+`statsforensics` is designed to support a complete statistical analysis workflow in a structured and reproducible way.
+
+This vignette demonstrates how a single dataset moves through exploration, hypothesis testing, modeling, and diagnostics to produce interpretable results.
 
 ---
 
