@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^\.posit$
+^docs$
+^examples$
+^figures$
+^data-raw$
+^Makefile$
+^START_HERE\.txt$
+^SETUP_COMPLETE\.md$
+^PROJECT_STRUCTURE\.md$
+^CONTRIBUTING\.md$
+^vignettes/README\.md$

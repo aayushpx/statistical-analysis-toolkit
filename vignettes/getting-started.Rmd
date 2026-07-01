@@ -1,0 +1,205 @@
+---
+title: "Getting Started with statsforensics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with statsforensics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+```{r setup}
+library(statsforensics)
+```
+
+## Overview
+
+`statsforensics` provides a cohesive set of functions for the full statistical
+analysis cycle: exploratory data analysis, assumption checking, hypothesis
+testing, regression modeling, and diagnostics. This vignette walks through a
+complete workflow using the built-in `vehicles` dataset.
+
+---
+
+## 1. The Vehicles Dataset
+
+The package ships with `vehicles`, a cleaned subset of the EPA fuel economy
+data derived from `ggplot2::mpg`.
+
+```{r data}
+data(vehicles)
+head(vehicles)
+```
+
+Check for missing values before doing anything else:
+
+```{r missing}
+count_missing(vehicles)
+```
+
+---
+
+## 2. Exploratory Data Analysis
+
+### Single variable
+
+`eda_numeric()` produces a histogram, boxplot, and Q-Q plot alongside summary
+statistics. Set `quiet = FALSE` to print the statistics to the console.
+
+```{r eda-numeric}
+eda_numeric(vehicles, "highway_mpg", quiet = FALSE)
+```
+
+### Comparing groups
+
+`eda_by_group()` overlays boxplots and per-group Q-Q plots to reveal distributional
+differences before any formal test.
+
+```{r eda-by-group}
+eda_by_group(vehicles, "highway_mpg", "vehicle_class")
+```
+
+### Group-wise summary table
+
+```{r summarize-group}
+summarize_by_group(vehicles, c("highway_mpg", "city_mpg"), "vehicle_class")
+```
+
+---
+
+## 3. Assumption Checking
+
+### Normality
+
+`check_normality()` runs Shapiro-Wilk and Kolmogorov-Smirnov tests and reports
+an interpretation.
+
+```{r normality}
+check_normality(vehicles$highway_mpg)
+```
+
+### Homogeneity of variance
+
+Before running ANOVA, verify that variance is roughly equal across groups.
+
+```{r levene}
+check_heteroscedasticity(vehicles, response = "highway_mpg", group = "vehicle_class")
+```
+
+---
+
+## 4. Hypothesis Testing
+
+### One-way ANOVA
+
+```{r anova}
+anova_result <- perform_anova(vehicles, response = "highway_mpg", group = "vehicle_class")
+```
+
+The effect size η² shows how much of the variance in highway MPG is explained
+by vehicle class.
+
+### Post-hoc comparisons
+
+When ANOVA is significant, Tukey HSD identifies which pairs differ.
+
+```{r tukey}
+tukey_post_hoc(anova_result)
+```
+
+### Non-parametric alternative
+
+If normality is violated, use the Kruskal-Wallis test instead.
+
+```{r kruskal}
+kruskal_wallis_test(vehicles, response = "highway_mpg", group = "vehicle_class")
+```
+
+---
+
+## 5. Regression Modeling
+
+### Fit a linear model
+
+```{r lm}
+model <- fit_linear_model(vehicles, "highway_mpg ~ engine_displacement")
+```
+
+### Model summary
+
+`model_summary()` presents fit statistics and coefficient table in a clean format.
+
+```{r model-summary}
+model_summary(model)
+```
+
+### Validate assumptions
+
+After fitting, check whether the model's residuals satisfy the regression
+assumptions before drawing inference.
+
+```{r validate}
+validate_assumptions(model)
+```
+
+### Diagnostic plots
+
+`plot_diagnostics()` generates a 4-panel grid: residuals vs fitted, normal Q-Q,
+scale-location, and residual order plot.
+
+```{r diagnostics}
+plot_diagnostics(model)
+```
+
+---
+
+## 6. Predictions
+
+Generate predictions with uncertainty intervals on a new grid of values.
+
+```{r predictions}
+new_data <- data.frame(engine_displacement = seq(1.6, 7.0, by = 0.5))
+preds <- create_prediction_intervals(model, newdata = new_data)
+plot_predictions(preds)
+```
+
+---
+
+## 7. Comparing Models
+
+```{r compare}
+model_simple <- fit_linear_model(vehicles, "highway_mpg ~ engine_displacement")
+model_full   <- fit_linear_model(vehicles, "highway_mpg ~ engine_displacement + cylinders")
+
+compare_models(model_simple, model_full)
+```
+
+Use `model_dashboard()` to compare many models at once on key metrics.
+
+```{r dashboard}
+model_poly <- fit_polynomial_model(vehicles, "highway_mpg", "engine_displacement", degree = 2)
+
+model_dashboard(list(
+  Linear      = model_simple,
+  Full        = model_full,
+  Polynomial  = model_poly
+))
+```
+
+---
+
+## Next Steps
+
+- See `?check_multicollinearity` for VIF-based collinearity diagnosis on
+  multi-predictor models.
+- Use `chi_squared_test()` and `correspondence_analysis_wrapper()` for
+  categorical association analysis.
+- `generate_report()` wraps the entire pipeline into a single console report.

@@ -1,0 +1,37 @@
+Package: statsforensics
+Title: Statistical Analysis Toolkit for Exploratory and Inferential Analysis
+Version: 0.1.0
+Authors@R: c(
+    person("Aayush", "Prakash", email = "aayush@example.com", role = c("aut", "cre"))
+  )
+Description: A comprehensive toolkit for exploratory data analysis, statistical
+    inference, hypothesis testing, regression modeling, and publication-quality
+    visualization. Provides modular functions for rigorous statistical workflows
+    including assumption validation, group comparisons, regression diagnostics,
+    and reproducible reporting.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 4.0.0)
+Imports:
+    ggplot2 (>= 3.4.0),
+    dplyr (>= 1.1.0),
+    tibble (>= 3.1.0),
+    car (>= 3.1.0),
+    patchwork (>= 1.1.2),
+    FactoMineR (>= 2.4.0),
+    GGally (>= 2.1.2),
+    gridExtra (>= 2.3),
+    rlang (>= 1.1.1),
+    tidyselect (>= 1.2.0)
+Suggests:
+    testthat (>= 3.0.0),
+    knitr (>= 1.42),
+    rmarkdown (>= 2.21)
+VignetteBuilder: knitr
+URL: https://github.com/yourusername/statistical-analysis-toolkit
+BugReports: https://github.com/yourusername/statistical-analysis-toolkit/issues
+LazyData: true
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
